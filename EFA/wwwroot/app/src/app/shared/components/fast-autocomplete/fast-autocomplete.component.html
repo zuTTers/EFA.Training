@@ -1,0 +1,8 @@
+<mat-form-field [style.width.%]="100">
+    <input matInput placeholder="{{placeholder}}" [matAutocomplete]="auto" name="auto-complete" required="{{isRequired}}"  [formControl]="autoFormControl">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="autoCompleteDisplay">
+        <mat-option *ngFor="let row of dataList" [value]="row">
+            {{row.displayText}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

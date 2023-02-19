@@ -1,0 +1,177 @@
+<div class="position-relative" style=" padding-bottom: 0px; margin-bottom:20px; border-bottom: 1px solid #d8d8d8">
+  <h2 mat-dialog-title *ngIf="isNew==true">{{'GENERAL.NEWRECORD' | translate}}
+    {{'VACCINATIONTRANSACTION.VACCINATIONTRANSACTION' | translate}}</h2>
+  <h2 mat-dialog-title *ngIf="isNew==false">{{'GENERAL.UPDATERECORD' | translate}}
+    {{'VACCINATIONTRANSACTION.VACCINATIONTRANSACTION' | translate}} - {{row.vaccinationId}}</h2>
+  <button mat-icon-button color="primary" (click)="close()" class="position-absolute" style="right:0px; top:0px;">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<!-- NEW VACCINATION TRANSACTION -->
+<mat-dialog-content *ngIf="isNew==true">
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>person</mat-icon>
+          &nbsp; Müşteri Bilgileri
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-panel-description>
+        Lütfen müşteri bilgilerini giriniz
+      </mat-panel-description>
+      <div [style.width.%]="100" appearance="legacy">
+        <fast-autocomplete [style.width.%]="100" placeholder="{{ 'VACCINATIONTRANSACTION.CUSTOMERNAME' | translate }}"
+          [initValue]="newRow.customerData.customerId" [endpoint]="'/Customer/GetListForCombo'"
+          (onChange)="onCustomerChange($event,newRow,'customerId')"></fast-autocomplete>
+      </div>
+      <mat-form-field [style.width.%]="100" appearance="legacy">
+        <mat-label>{{ 'CUSTOMER.IDENTITYNUMBER' | translate }}</mat-label>
+        <input type="text" matInput [(ngModel)]="newRow.customerData.identityNumber" maxlength="11">
+      </mat-form-field>
+      <mat-form-field [style.width.%]="100" appearance="legacy">
+        <mat-label>{{ 'CUSTOMER.PHONENUMBER' | translate }}</mat-label>
+        <input type="text" matInput [(ngModel)]="newRow.customerData.phoneNumber" maxlength="10">
+      </mat-form-field>
+      <mat-form-field [style.width.%]="100" appearance="legacy">
+        <mat-label>{{ 'CUSTOMER.ADDRESS' | translate }}</mat-label>
+        <input type="text" matInput [(ngModel)]="newRow.customerData.address">
+      </mat-form-field>
+      <mat-action-row>
+        <button mat-raised-button color="primary" (click)="nextStep()">{{'GENERAL.FORWARD' | translate}}</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>pets</mat-icon>
+          &nbsp; Hasta Bilgileri
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-panel-description>
+        Lütfen hasta seçiniz
+      </mat-panel-description>
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+        [(ngModel)]="newRow.patientId">
+        <mat-radio-button (onChange)="onPatientChange($event,newRow,'patientId')" class="example-radio-button" *ngFor="let p of newRow.patientDataList" [value]="p.patientId">
+          <mat-label>{{p.fullName}} ({{p.genuName}})</mat-label>
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-action-row>
+        <button mat-raised-button color="warn" (click)="prevStep()">{{'GENERAL.BACK' | translate}}</button>
+        <button mat-raised-button color="primary" (click)="nextStep()">{{'GENERAL.FORWARD' | translate}}</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>date_range</mat-icon>
+          &nbsp; Aşı Bilgileri
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-panel-description>
+        Lütfen aşı tarihini giriniz
+      </mat-panel-description>
+      <mat-form-field [style.width.%]="100" appearance="legacy">
+        <mat-label>{{ 'VACCINATIONTRANSACTION.VACCINATIONDATE' | translate }}</mat-label>
+        <input matInput [matDatepicker]="vaccinationDatePicker" [(ngModel)]="newRow.vaccinationDate">
+        <mat-datepicker-toggle matSuffix [for]="vaccinationDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #vaccinationDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-datepicker #picker></mat-datepicker>
+      <div [style.width.%]="100" appearance="legacy">
+        <fast-autocomplete [style.width.%]="100"
+          placeholder="{{ 'VACCINATIONTRANSACTION.VACCINATIONTYPE' | translate }}" [initValue]="newRow.vaccinationType"
+          [endpoint]="'/VaccinationType/GetListForCombo'" (onChange)="onChange($event,newRow,'vaccinationType')">
+        </fast-autocomplete>
+      </div>
+      <!-- <mat-form-field [style.width.%]="100" appearance="legacy">
+        <mat-label>{{ 'VACCINATIONTRANSACTION.VETNAME' | translate }}</mat-label>
+        <input type="text" matInput [(ngModel)]="newRow.vetName">
+      </mat-form-field> -->
+      <mat-form-field [style.width.%]="100" appearance="legacy">
+        <mat-label>{{ 'VACCINATIONTRANSACTION.DESCRIPTION' | translate }}</mat-label>
+        <input type="text" matInput [(ngModel)]="newRow.description">
+      </mat-form-field>
+      <mat-action-row>
+        <button mat-raised-button color="warn" (click)="prevStep()">{{'GENERAL.BACK' | translate}}</button>
+        <button mat-raised-button color="primary" (click)="save()">{{'GENERAL.COMPLETE' | translate}}</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-dialog-content>
+
+<!-- VACCINATION TRANSACTION DETAIL -->
+<mat-dialog-content *ngIf="isNew!=true">
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <div [style.width.%]="100" appearance="legacy">
+      <fast-autocomplete [style.width.%]="100" placeholder="{{ 'VACCINATIONTRANSACTION.CUSTOMERNAME' | translate }}"
+        [initValue]="row.customerId" [endpoint]="'/Customer/GetListForCombo'"
+        (onChange)="onChange($event,row,'customerId')"></fast-autocomplete>
+    </div>
+    <div [style.width.%]="100" appearance="legacy">
+      <fast-autocomplete [style.width.%]="100" placeholder="{{ 'VACCINATIONTRANSACTION.PATIENTNAME' | translate }}"
+        [initValue]="row.patientId" [endpoint]="'/Patient/GetListForCombo'"
+        (onChange)="onChange($event,row,'patientId')"></fast-autocomplete>
+    </div>
+    <mat-form-field [style.width.%]="100" appearance="legacy">
+      <mat-label>{{ 'VACCINATIONTRANSACTION.VETNAME' | translate }}</mat-label>
+      <input type="text" matInput [(ngModel)]="row.vetName" disabled>
+    </mat-form-field>
+    <mat-form-field [style.width.%]="100" appearance="legacy">
+      <mat-label>{{ 'VACCINATIONTRANSACTION.STATUSID' | translate }}</mat-label>
+      <input type="text" matInput [(ngModel)]="row.statusName" disabled>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <div [style.width.%]="100" appearance="legacy">
+      <fast-autocomplete [style.width.%]="100" placeholder="{{ 'VACCINATIONTRANSACTION.VACCINATIONTYPE' | translate }}"
+        [initValue]="row.vaccinationType" [endpoint]="'/VaccinationType/GetListForCombo'"
+        (onChange)="onChange($event,row,'vaccinationType')"></fast-autocomplete>
+    </div>
+    <mat-form-field [style.width.%]="100" appearance="legacy">
+      <mat-label>{{ 'VACCINATIONTRANSACTION.VACCINATIONDATE' | translate }}</mat-label>
+      <input matInput [matDatepicker]="vaccinationDatePicker" [(ngModel)]="row.vaccinationDate">
+      <mat-datepicker-toggle matSuffix [for]="vaccinationDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #vaccinationDatePicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <mat-form-field [style.width.%]="100" appearance="legacy">
+      <mat-label>{{ 'VACCINATIONTRANSACTION.DESCRIPTION' | translate }}</mat-label>
+      <input type="text" matInput [(ngModel)]="row.description">
+    </mat-form-field>
+  </div>
+  <div *ngIf="isNew!=true" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <mat-form-field fxFlex appearance="legacy">
+      <mat-label>{{ 'USER.CREATEDDATE' | translate }}</mat-label>
+      <input matInput value="{{row.createdDate | date:'yyyy-MM-dd HH:mm' }}" readonly>
+    </mat-form-field>
+    <mat-form-field fxFlex appearance="legacy">
+      <mat-label>{{ 'USER.CREATEDUSERTEXT' | translate }}</mat-label>
+      <input matInput [(ngModel)]="row.createdUserText" readonly>
+    </mat-form-field>
+  </div>
+  <div *ngIf="isNew!=true" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <mat-form-field fxFlex appearance="legacy">
+      <mat-label>{{ 'USER.UPDATEDDATE' | translate }}</mat-label>
+      <input matInput value="{{row.updatedDate | date:'yyyy-MM-dd HH:mm' }}" readonly>
+    </mat-form-field>
+    <mat-form-field fxFlex appearance="legacy">
+      <mat-label>{{ 'USER.UPDATEDUSERTEXT' | translate }}</mat-label>
+      <input matInput [(ngModel)]="row.updatedUserText" readonly>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayout="row" *ngIf="isNew==false">
+  <div fxFlex="20%">
+    <button mat-raised-button color="default" (click)="close()">{{'GENERAL.CANCEL' | translate}}</button>
+    <button mat-raised-button color="warn" (click)="delete()">{{'GENERAL.DELETE' | translate}}</button>
+  </div>
+  <div fxFlex="80%" style="text-align:right;">
+    <button mat-raised-button color="primary" (click)="save()">{{'GENERAL.SAVE' | translate}}</button>
+  </div>
+</mat-dialog-actions>

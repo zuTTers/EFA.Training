@@ -1,0 +1,55 @@
+<div class="sidebar-panel">
+  <div id="scroll-area" [perfectScrollbar] class="navigation-hold" fxLayout="column">
+    <div class="sidebar-hold">
+
+      <!-- App Logo -->
+      <div class="branding">
+        <!-- <img style="width:160px;" src="assets/images/logos/site-logo.png" alt="">
+        <span class="app-logo-text"></span>
+        <span style="margin: auto" *ngIf="layoutConf.sidebarStyle !== 'compact'"></span>
+        <div class="sidebar-compact-switch" [ngClass]="{active: layoutConf.sidebarCompactToggle}"
+          (click)="toggleCollapse()" *ngIf="layoutConf.sidebarStyle !== 'compact'"><span></span></div> -->
+      </div>
+
+      <!-- Sidebar user -->
+      <div class="" style="text-align: center;">
+        <div class="">
+          <img src="assets/images/personImage.png" class="mat-elevation-z2" alt="">
+        </div>
+        <!--<span class="app-user-name mb-8">
+                <mat-icon class="icon-xs text-muted">lock</mat-icon> 
+                {{jwtAuth?.user?.displayName}}
+                </span>-->
+        <!-- Small buttons -->
+        <!-- <div class="app-user-controls">
+          <button class="text-muted" mat-icon-button mat-xs-button matTooltip="Ayarlar">
+            <mat-icon>settings</mat-icon>
+          </button>
+          <button class="text-muted" mat-icon-button mat-xs-button matTooltip="Gelen Kutusu" routerLink="/inbox">
+            <mat-icon>email</mat-icon>
+          </button>
+          <button class="text-muted" mat-icon-button mat-xs-button matTooltip="Cikis Yap" routerLink="/sessions/signin">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+          <mat-menu #accountMenu="matMenu">
+            <button mat-menu-item [routerLink]="['/profile/overview']">
+              <mat-icon>account_box</mat-icon>
+              <span>{{ "PROFILE" | translate }}</span>
+            </button>
+            <button mat-menu-item [routerLink]="['/profile/settings']">
+              <mat-icon>settings</mat-icon>
+              <span>{{ "SETTINGS" | translate }}</span>
+            </button>
+            <button mat-menu-item (click)="jwtAuth.signout()">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>{{ "SIGNOUT" | translate }}</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div> -->
+      <!-- Navigation -->
+      <app-sidenav [items]="menuItems" [hasIconMenu]="hasIconTypeMenuItem" [iconMenuTitle]="iconTypeMenuTitle">
+      </app-sidenav>
+    </div>
+  </div>
+</div>

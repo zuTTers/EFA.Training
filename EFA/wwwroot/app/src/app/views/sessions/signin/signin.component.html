@@ -1,0 +1,43 @@
+<div class="page-wrap h-full slate">
+  <div class="session-form-hold">
+    <mat-progress-bar mode="determinate" class="session-progress"></mat-progress-bar>
+    <mat-card>
+      <mat-card-content>
+        <div class="text-center pt-8 pb-16">
+          <img src="assets/images/logos/site-logo-4.png" width="102" height="82">
+          <p class="text-muted m-0"> Yetkili Girişi </p>
+        </div>
+        <p *ngIf="errorMsg" class="text-center"><small class="text-red">{{errorMsg}}</small></p>
+        <form [formGroup]="signinForm" (ngSubmit)="signin()">
+          <div class="">
+            <mat-form-field class="full-width">
+              <input matInput name="username" [formControl]="signinForm.controls['username']"
+                placeholder="Kullanıcı adı" value="">
+            </mat-form-field>
+            <small
+              *ngIf="signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched"
+              class="form-error-msg"> Kullanıcı adı giriniz </small>
+          </div>
+          <div class="">
+            <mat-form-field class="full-width">
+              <input type="password" name="password" matInput [formControl]="signinForm.controls['password']"
+                placeholder="Parola" value="">
+            </mat-form-field>
+            <small
+              *ngIf="signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched"
+              class="form-error-msg"> Parola giriniz </small>
+          </div>
+          <div class="pb-16">
+            <mat-checkbox name="rememberMe" [formControl]="signinForm.controls['rememberMe']" class="pb-16">Beni hatırla
+            </mat-checkbox>
+          </div>
+          <button mat-raised-button class="mat-primary full-width mb-16" [disabled]="signinForm.invalid">Giriş
+            Yap</button>
+          <!-- <div class="text-center">
+            <a [routerLink]="'/sessions/forgot-password'" class="mat-primary text-center full-width">Parolamı Unuttum</a>
+          </div> -->
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

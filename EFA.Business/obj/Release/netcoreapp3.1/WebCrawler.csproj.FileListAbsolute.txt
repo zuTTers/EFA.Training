@@ -1,0 +1,10 @@
+C:\Users\zubey\source\repos\Crawler\WebCrawler\bin\Release\netcoreapp3.1\WebCrawler.deps.json
+C:\Users\zubey\source\repos\Crawler\WebCrawler\bin\Release\netcoreapp3.1\WebCrawler.dll
+C:\Users\zubey\source\repos\Crawler\WebCrawler\bin\Release\netcoreapp3.1\WebCrawler.pdb
+C:\Users\zubey\source\repos\Crawler\WebCrawler\obj\Release\netcoreapp3.1\WebCrawler.csproj.AssemblyReference.cache
+C:\Users\zubey\source\repos\Crawler\WebCrawler\obj\Release\netcoreapp3.1\WebCrawler.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zubey\source\repos\Crawler\WebCrawler\obj\Release\netcoreapp3.1\WebCrawler.AssemblyInfoInputs.cache
+C:\Users\zubey\source\repos\Crawler\WebCrawler\obj\Release\netcoreapp3.1\WebCrawler.AssemblyInfo.cs
+C:\Users\zubey\source\repos\Crawler\WebCrawler\obj\Release\netcoreapp3.1\WebCrawler.csproj.CoreCompileInputs.cache
+C:\Users\zubey\source\repos\Crawler\WebCrawler\obj\Release\netcoreapp3.1\WebCrawler.dll
+C:\Users\zubey\source\repos\Crawler\WebCrawler\obj\Release\netcoreapp3.1\WebCrawler.pdb

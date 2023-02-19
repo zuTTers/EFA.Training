@@ -1,0 +1,12 @@
+
+// Model Güncelleme
+Option 1 : dotnet ef dbcontext scaffold "Data Source=ZUTTERS;Initial Catalog=Edis-DEV;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -o Models --force
+Option 2 : Scaffold-DbContext "Server=ZUTTERS;Database=Edis-DEV;User ID=zubeyir;Password=123456789;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
+
+// Ekran oluþturma
+http://localhost:13003/api/TemplateEngine/CreateBackendTemplate?menu=General&entity=VaccinationTransaction&primaryKey=VaccinationId
+http://localhost:13003/api/TemplateEngine/CreateFrontEndTemplate?menu=General&entity=VaccinationTransaction&primaryKey=VaccinationId
+
+// ZK : ConnectionString
+optionsBuilder.UseSqlServer("Data Source=ZUTTERS;Initial Catalog=Edis-DEV;User ID=zubeyir;Password=123456789");
+

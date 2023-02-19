@@ -1,0 +1,10 @@
+C:\Users\zubey\Source\Repos\Crawler\WebCrawler\bin\Debug\netcoreapp3.1\WebCrawler.deps.json
+C:\Users\zubey\Source\Repos\Crawler\WebCrawler\bin\Debug\netcoreapp3.1\WebCrawler.dll
+C:\Users\zubey\Source\Repos\Crawler\WebCrawler\bin\Debug\netcoreapp3.1\WebCrawler.pdb
+C:\Users\zubey\Source\Repos\Crawler\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawler.AssemblyInfoInputs.cache
+C:\Users\zubey\Source\Repos\Crawler\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawler.AssemblyInfo.cs
+C:\Users\zubey\Source\Repos\Crawler\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawler.csproj.CoreCompileInputs.cache
+C:\Users\zubey\Source\Repos\Crawler\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawler.dll
+C:\Users\zubey\Source\Repos\Crawler\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawler.pdb
+C:\Users\zubey\source\repos\Crawler\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawler.csproj.AssemblyReference.cache
+C:\Users\zubey\source\repos\Crawler\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawler.GeneratedMSBuildEditorConfig.editorconfig
