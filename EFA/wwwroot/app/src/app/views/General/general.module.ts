@@ -6,17 +6,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { VaccinationTransactionComponent } from './VaccinationTransaction/vaccinationtransaction.component'
-import { VaccinationTransactionDialogComponent } from './VaccinationTransaction/vaccinationtransaction-dialog.component';
-import { VaccinationTransactionDateDialogComponent } from './VaccinationTransaction/vaccinationtransaction-datedialog.component';
-import { VaccinationTypeComponent } from './VaccinationType/vaccinationtype.component'
-import { VaccinationTypeDialogComponent } from './VaccinationType/vaccinationtype-dialog.component';
-import { PatientComponent } from './Patient/patient.component'
-import { PatientDialogComponent } from './Patient/patient-dialog.component';
 import { CustomerComponent } from './Customer/customer.component'
 import { CustomerDialogComponent } from './Customer/customer-dialog.component';
-import { GenuComponent } from './Genu/genu.component';
-import { GenuDialogComponent } from './Genu/genu-dialog.component';
 
 import { GeneralRoutes } from './general.routing';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -81,17 +72,8 @@ import { DashboardDialogComponent } from './Dashboard/dashboard-dialog.component
     ],
 
     declarations: [
-        VaccinationTransactionComponent,
-        VaccinationTransactionDialogComponent,
-        VaccinationTransactionDateDialogComponent,
-        VaccinationTypeComponent,
-        VaccinationTypeDialogComponent,
-        PatientComponent,
-        PatientDialogComponent,
         CustomerComponent,
         CustomerDialogComponent,
-        GenuComponent,
-        GenuDialogComponent,
         DashboardComponent,
         DashboardDialogComponent
         //FastAutoCompleteComponent

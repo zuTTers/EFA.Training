@@ -40,9 +40,9 @@
                         <mat-cell *matCellDef="let row" data-label="CustomerId"> {{row.customerId}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="identityNumber">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.IDENTITYNUMBER' | translate}} </mat-header-cell>
-                        <mat-cell *matCellDef="let row" data-label="IdentityNumber"> {{row.identityNumber}}</mat-cell>
+                    <ng-container matColumnDef="customerType">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.CUSTOMERTYPE' | translate}} </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="customerType"> {{row.customerType}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="fullName">
@@ -53,6 +53,11 @@
                     <ng-container matColumnDef="phoneNumber">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.PHONENUMBER' | translate}} </mat-header-cell>
                         <mat-cell *matCellDef="let row" data-label="PhoneNumber"> {{row.phoneNumber}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="identityNumber">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.IDENTITYNUMBER' | translate}} </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="IdentityNumber"> {{row.identityNumber}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="address">

@@ -111,6 +111,10 @@ namespace EFA.Models
 
                 entity.Property(e => e.CreatedUser).HasDefaultValueSql("((1))");
 
+                entity.Property(e => e.FirstStartDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.FullName)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -130,6 +134,10 @@ namespace EFA.Models
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.UpdatedUser).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.WorkingEndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.WorkingStartDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.CreatedUserNavigation)
                     .WithMany(p => p.CustomerCreatedUserNavigations)
