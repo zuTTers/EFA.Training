@@ -107,6 +107,10 @@
             <input matInput type="number" [(ngModel)]="filter.customerId">
         </mat-form-field>
         <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{'CUSTOMER.CUSTOMERTYPE'| translate}}</mat-label>
+            <input matInput type="number" [(ngModel)]="filter.customerType">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
             <mat-label>{{'CUSTOMER.IDENTITYNUMBER'| translate}}</mat-label>
             <input matInput type="text" [(ngModel)]="filter.identityNumber">
         </mat-form-field>
@@ -122,26 +126,5 @@
             <mat-label>{{'CUSTOMER.ADDRESS'| translate}}</mat-label>
             <input matInput type="text" [(ngModel)]="filter.address">
         </mat-form-field>
-        <mat-form-field [style.width.%]="100" appearance="legacy">
-            <mat-label>{{'CUSTOMER.CREATEDUSER'| translate}}</mat-label>
-            <input matInput type="number" [(ngModel)]="filter.createdUser">
-        </mat-form-field>
-        <div>
-            <mat-form-field [style.width.%]="45" appearance="legacy">
-                <mat-label>{{'CUSTOMER.CREATEDDATE'| translate}}</mat-label>
-                <input matInput [matDatepicker]="createdDatepicker" [(ngModel)]="filter.createdDate">
-                <mat-datepicker-toggle matSuffix [for]="createdDatepicker"></mat-datepicker-toggle>
-                <mat-datepicker #createdDatepicker></mat-datepicker>
-            </mat-form-field>
-            &nbsp;
-            <mat-form-field [style.width.%]="45" appearance="legacy">
-                <mat-label>{{'CUSTOMER.CREATEDDATE'| translate}}</mat-label>
-                <input matInput [matDatepicker]="createdDate2picker" [(ngModel)]="filter.createdDate2">
-                <mat-datepicker-toggle matSuffix [for]="createdDate2picker"></mat-datepicker-toggle>
-                <mat-datepicker #createdDate2picker></mat-datepicker>
-            </mat-form-field>
-        </div>
-
-
     </mat-sidenav>
 </mat-sidenav-container>

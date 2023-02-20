@@ -34,7 +34,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { DashboardComponent } from './Dashboard/dashboard.component';
 import { DashboardDialogComponent } from './Dashboard/dashboard-dialog.component';
-
+import { QRCodeModule } from 'angularx-qrcode';
 
 //@Component_Imports
 
@@ -68,6 +68,7 @@ import { DashboardDialogComponent } from './Dashboard/dashboard-dialog.component
         SharedComponentsModule,
         MatExpansionModule,
         MatRadioModule,
+        QRCodeModule,
         RouterModule.forChild(GeneralRoutes)
     ],
 

@@ -337,6 +337,7 @@ export class CustomerComponent implements OnInit {
 export class CustomerData {
 
     customerId: number;
+    customerType: number;
     identityNumber: string;
     fullName: string;
     phoneNumber: string;
@@ -357,6 +358,7 @@ export class CustomerData {
 export class CustomerFilter {
 
     customerId: number;
+    customerType: number;
     identityNumber: string;
     fullName: string;
     phoneNumber: string;
