@@ -115,8 +115,9 @@ namespace EFA.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
+                entity.Property(e => e.IdentityCode).IsRequired();
+
                 entity.Property(e => e.IdentityNumber)
-                    .IsRequired()
                     .HasMaxLength(11)
                     .IsUnicode(false);
 
