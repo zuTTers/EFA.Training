@@ -35,6 +35,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { DashboardComponent } from './Dashboard/dashboard.component';
 import { DashboardDialogComponent } from './Dashboard/dashboard-dialog.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
 
 //@Component_Imports
 
@@ -69,6 +70,7 @@ import { QRCodeModule } from 'angularx-qrcode';
         MatExpansionModule,
         MatRadioModule,
         QRCodeModule,
+        NgxScannerQrcodeModule,
         RouterModule.forChild(GeneralRoutes)
     ],
 

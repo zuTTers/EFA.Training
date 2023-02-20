@@ -1,18 +1,29 @@
-<div class="position-relative" style=" padding-bottom: 0px; margin-bottom:20px; border-bottom: 1px solid #d8d8d8">
-    <h2 mat-dialog-title *ngIf="isNew==true">{{'GENERAL.NEWRECORD' | translate}} {{'CUSTOMER.CUSTOMER' | translate}}
+﻿<div class="position-relative" style=" padding-bottom: 0px; margin-bottom:20px; border-bottom: 1px solid #d8d8d8">
+    <h2 mat-dialog-title *ngIf="isNew==true">
+        {{'GENERAL.NEWRECORD' | translate}} {{'CUSTOMER.CUSTOMER' | translate}}
     </h2>
-    <h2 mat-dialog-title *ngIf="isNew==false">{{'GENERAL.UPDATERECORD' | translate}} {{'CUSTOMER.CUSTOMER' | translate}}
-        - {{row.customerId}}</h2>
+    <h2 mat-dialog-title *ngIf="isNew==false">
+        {{'GENERAL.UPDATERECORD' | translate}} {{'CUSTOMER.CUSTOMER' | translate}}
+        - {{row.customerId}}
+    </h2>
     <button mat-icon-button color="primary" (click)="close()" class="position-absolute" style="right:0px; top:0px;">
         <mat-icon>close</mat-icon>
     </button>
 </div>
 <mat-dialog-content>
     <mat-form-field [style.width.%]="100" appearance="legacy">
+        <!-- For camera -->
+        <ngx-scanner-qrcode #action="scanner"></ngx-scanner-qrcode>
+        <!-- data  -->
+        <mat-label>{{ action.data.value | json }}</mat-label>
+        <mat-label>{{ action.data | async | json }}</mat-label>
+        <!-- start -->
+        <button mat-raised-button (click)="action.isStart ? action.stop() : action.start()">Kamera</button>
+    </mat-form-field>
+    <mat-form-field [style.width.%]="100" appearance="legacy">
         <mat-label>{{ 'CUSTOMER.QRCODE' | translate }}</mat-label>
         <qrcode [qrdata]="'Your data string'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
     </mat-form-field>
-
     <mat-form-field [style.width.%]="100" appearance="legacy" *ngIf="isNew!=true">
         <mat-label>{{ 'CUSTOMER.CUSTOMERID' | translate }}</mat-label>
         <input type="text" matInput [(ngModel)]="row.customerId" disabled="isNew!=true">
@@ -63,8 +74,12 @@
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row">
     <div fxFlex="20%">
-        <button *ngIf="isNew==false" mat-raised-button color="warn" (click)="delete()">{{'GENERAL.DELETE' |
-            translate}}</button>
+        <button *ngIf="isNew==false" mat-raised-button color="warn" (click)="delete()">
+            {{
+'GENERAL.DELETE' |
+            translate
+            }}
+        </button>
     </div>
     <div fxFlex="80%" style="text-align:right;">
         <button mat-raised-button (click)="close()">{{'GENERAL.CANCEL' | translate}}</button>
