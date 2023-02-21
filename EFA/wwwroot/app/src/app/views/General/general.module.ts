@@ -8,6 +8,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { CustomerComponent } from './Customer/customer.component'
 import { CustomerDialogComponent } from './Customer/customer-dialog.component';
+import { CustomerSearchComponent } from './Customer/customer-search.component';
 
 import { GeneralRoutes } from './general.routing';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -36,6 +37,7 @@ import { DashboardComponent } from './Dashboard/dashboard.component';
 import { DashboardDialogComponent } from './Dashboard/dashboard-dialog.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 //@Component_Imports
 
@@ -71,12 +73,14 @@ import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
         MatRadioModule,
         QRCodeModule,
         NgxScannerQrcodeModule,
+        ZXingScannerModule,
         RouterModule.forChild(GeneralRoutes)
     ],
 
     declarations: [
         CustomerComponent,
         CustomerDialogComponent,
+        CustomerSearchComponent,
         DashboardComponent,
         DashboardDialogComponent
         //FastAutoCompleteComponent

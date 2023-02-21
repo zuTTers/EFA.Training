@@ -1,38 +1,60 @@
 <mat-sidenav-container class="example-container" [hasBackdrop]="true">
     <mat-sidenav-content style="min-height: 80vh; margin-top: -8px;">
         <div class="ml-12 mr-12 mt-12 pb-20">
-            <!-- CUSTOMER SEARCH -->
-            <mat-card>
-                <mat-card-title>Müşteri Arama</mat-card-title>
-                <mat-card-subtitle>Müşteri arayın veya yeni müşteri ekleyin.</mat-card-subtitle>
-                <mat-card-content>
-                    <fast-autocomplete [style.width.%]="100" placeholder="{{ 'DASHBOARD.SEARCHCUSTOMER' | translate }}"
-                        [initValue]="searchCustomerId" [endpoint]="'/Customer/GetListForCombo'"
-                        (onChange)="onChange($event)">
-                    </fast-autocomplete>
+            <div fxLayout="row" fxLayoutGap="10">
+                <div fxFlex="30%">
+                    <!-- CUSTOMER SEARCH -->
+                    <mat-card>
+                        <mat-card-title>Üye Arama</mat-card-title>
+                        <mat-card-subtitle>Üye arayın veya yeni üye ekleyin.</mat-card-subtitle>
+                        <mat-card-content>
+                            <fast-autocomplete [style.width.%]="100" placeholder="{{ 'DASHBOARD.SEARCHCUSTOMER' | translate }}"
+                                               [initValue]="searchCustomerId" [endpoint]="'/Customer/GetListForCombo'"
+                                               (onChange)="onChange($event)">
+                            </fast-autocomplete>
 
-                </mat-card-content>
-                <mat-card-actions align="start">
-                    <button mat-flat-button color="primary" (click)="newCustomerDialog()">Yeni Müşteri Ekle</button>
-                    <!-- <button mat-flat-button color="primary" style="margin-left:15px;" (click)="newVaccinationDialog()">Yeni Aşı Ekle</button> -->
-                </mat-card-actions>
-            </mat-card>
+                        </mat-card-content>
+                        <mat-card-actions align="start">
+                            <button mat-flat-button color="primary" (click)="newCustomerDialog()">Yeni Üye Ekle</button>
+                            <!-- <button mat-flat-button color="primary" style="margin-left:15px;" (click)="newVaccinationDialog()">Yeni Aşı Ekle</button> -->
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+                <div fxFlex="70%">
+                    <!-- QR SEARCH -->
+                    <mat-card>
+                        <mat-card-title>QR TARAMA</mat-card-title>
+                        <mat-card-subtitle>Üye QR kodunu okutun.</mat-card-subtitle>
+                        <mat-card-content>
+                            <zxing-scanner></zxing-scanner>
+                        </mat-card-content>
+                        <mat-card-actions align="start">
+                            <button mat-flat-button color="primary" (click)="newCustomerDialog()">Başlat</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
             <!-- CUSTOMER & PATIENT INFO -->
             <div fxLayout="row" fxLayoutGap="10" *ngIf="searchCustomerData">
-                <div fxFlex="50%">
+                <div fxFlex="80%">
                     <mat-card>
-                        <mat-card-title>Müşteri Bilgileri</mat-card-title>
-                        <mat-card-subtitle>Müşteri bilgilerini inceleyebilir veya düzenleyebilirsiniz.
+                        <mat-card-title>Üye Bilgileri</mat-card-title>
+                        <mat-card-subtitle>
+                            Üye bilgilerini inceleyebilir veya düzenleyebilirsiniz.
                         </mat-card-subtitle>
                         <mat-card-content>
                             <mat-list role="list">
-                                <mat-list-item role="listitem"><b>Adı Soyadı : </b>&nbsp; {{searchCustomerData?.fullName}}
+                                <mat-list-item role="listitem">
+                                    <b>Adı Soyadı : </b>&nbsp; {{searchCustomerData?.fullName}}
                                 </mat-list-item>
-                                <mat-list-item role="listitem"><b>Telefon No : </b>&nbsp; {{searchCustomerData?.phoneNumber}}
+                                <mat-list-item role="listitem">
+                                    <b>Telefon No : </b>&nbsp; {{searchCustomerData?.phoneNumber}}
                                 </mat-list-item>
-                                <mat-list-item role="listitem"><b>TC No : </b>&nbsp; {{searchCustomerData?.identityNumber}}
+                                <mat-list-item role="listitem">
+                                    <b>TC No : </b>&nbsp; {{searchCustomerData?.identityNumber}}
                                 </mat-list-item>
-                                <mat-list-item role="listitem"><b>Adres : </b>&nbsp; {{searchCustomerData?.address}}
+                                <mat-list-item role="listitem">
+                                    <b>Adres : </b>&nbsp; {{searchCustomerData?.address}}
                                 </mat-list-item>
                             </mat-list>
                         </mat-card-content>
@@ -42,171 +64,17 @@
                     </mat-card>
                 </div>
                 <mat-divider [vertical]="true"></mat-divider>
-                <div fxFlex="50%">
+                <div fxFlex="20%">
                     <mat-card>
-                        <mat-card-title>Hasta Bilgileri</mat-card-title>
-                        <mat-card-subtitle>Hasta bilgilerini inceleyebilir veya düzenleyebilirsiniz.</mat-card-subtitle>
+                        <mat-card-title>QR Kod</mat-card-title>
+                        <mat-card-subtitle>
+                        </mat-card-subtitle>
                         <mat-card-content>
-                            <div [hidden]="this.showSpinner">
-                                <mat-table [dataSource]="patientDataSource" matSort (matSortChange)="sortPatientData($event)">
-                                    <ng-container matColumnDef="Actions">
-                                        <mat-header-cell *matHeaderCellDef> {{'GENERAL.ACTIONS' | translate}}
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let row">
-                                            <button mat-icon-button matTooltip="Aşı Ekle"
-                                                class="iconbutton" (click)="newVaccinationDialog(row.patientId)">
-                                                <mat-icon aria-label="Aşı Ekle">timer</mat-icon>
-                                                <!-- <mat-icon aria-label="Aşı Ekle">calendar_today</mat-icon> -->
-                                            </button>
-                                            <button mat-icon-button matTooltip="Düzenle"
-                                                class="iconbutton" (click)="editPatientDialog(row)">
-                                                <mat-icon aria-label="Düzenle">edit</mat-icon>
-                                            </button>
-                                        </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="patientId">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'PATIENT.PATIENTID' |
-                                            translate}}
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" data-label="PatientId"> {{row.patientId}}
-                                        </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="customerId">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'PATIENT.CUSTOMERNAME' |
-                                            translate}} </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" data-label="CustomerId"> {{row.customerName}}
-                                        </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="fullName">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'PATIENT.FULLNAME' |
-                                            translate}}
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" data-label="FullName"> {{row.fullName}}
-                                        </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="gender">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'PATIENT.GENDER' |
-                                            translate}}
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" data-label="Gender">
-                                            <mat-slide-toggle [(ngModel)]="row.gender" disabled> </mat-slide-toggle>
-                                        </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="age">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'PATIENT.AGE' |
-                                            translate}}
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" data-label="Age"> {{row.age}}</mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="genuId">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'PATIENT.GENUNAME' |
-                                            translate}}
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" data-label="genuId"> {{row.genuName}}</mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="updatedUser">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'PATIENT.UPDATEDUSER' |
-                                            translate}} </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" data-label="UpdatedUser"> {{row.updatedUser}}
-                                        </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="updatedDate">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'PATIENT.UPDATEDDATE' |
-                                            translate}} </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" data-label="UpdatedDate"> {{row.updatedDate |
-                                            date:'yyyy-MM-dd HH:mm:ss'}} </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="updatedUserText">
-                                        <mat-header-cell *matHeaderCellDef> {{'PATIENT.UPDATEDUSERTEXT' | translate}}
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" data-label="UpdatedUser">
-                                            {{row.updatedUserText}}
-                                        </mat-cell>
-                                    </ng-container>
-                                    <mat-header-row *matHeaderRowDef="displayedColumnsPatient"></mat-header-row>
-                                    <mat-row *matRowDef="let row; columns: displayedColumnsPatient;">
-                                    </mat-row>
-                                </mat-table>
-                                <mat-paginator [length]="this.queryInfo.pager.totalCount"
-                                    [pageSize]="this.queryInfo.pager.pageSize"
-                                    (page)="pageEvent=$event; onPatientPaginateChange($event)"
-                                    [pageSizeOptions]="[10, 25, 50]">
-                                </mat-paginator>
-                            </div>
+                            <qrcode [qrdata]="'Test'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
                         </mat-card-content>
-                        <mat-card-actions align="end">
-                            <button mat-flat-button color="primary" (click)="newPatientDialog()">Yeni Hasta Ekle</button>
-                        </mat-card-actions>
                     </mat-card>
                 </div>
             </div>
-            <!-- VACCINATION HISTORY -->
-            <mat-card *ngIf="searchCustomerData">
-                <mat-card-title>Geçmiş Aşılar</mat-card-title>
-                <mat-card-subtitle>Hastanın geçmiş aşı listesi</mat-card-subtitle>
-                <mat-card-content>
-                        <mat-table [dataSource]="vaccinationDataSource" matSort (matSortChange)="sortVaccinationData($event)">
-                            <ng-container matColumnDef="Actions">
-                                <mat-header-cell *matHeaderCellDef> {{'GENERAL.ACTIONS' | translate}}
-                                </mat-header-cell>
-                                <mat-cell *matCellDef="let row">
-                                    <button mat-icon-button matTooltip="Düzenle"
-                                        class="iconbutton" (click)="editVaccinationDialog(row)">
-                                        <mat-icon aria-label="Düzenle">edit</mat-icon>
-                                    </button>
-                                </mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="vaccinationId">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'VACCINATIONTRANSACTION.VACCINATIONID' |
-                                    translate}} </mat-header-cell>
-                                <mat-cell *matCellDef="let row" data-label="VaccinationId"> {{row.vaccinationId}}</mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="customerId">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'VACCINATIONTRANSACTION.CUSTOMERNAME' |
-                                    translate}} </mat-header-cell>
-                                <mat-cell *matCellDef="let row" data-label="CustomerId"> {{row.customerName}}</mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="patientId">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'VACCINATIONTRANSACTION.PATIENTNAME' |
-                                    translate}} </mat-header-cell>
-                                <mat-cell *matCellDef="let row" data-label="PatientId"> {{row.patientName}}</mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="vetId">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'VACCINATIONTRANSACTION.VETNAME' |
-                                    translate}} </mat-header-cell>
-                                <mat-cell *matCellDef="let row" data-label="VetId"> {{row.vetName}}</mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="statusId">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'VACCINATIONTRANSACTION.STATUSID' |
-                                    translate}} </mat-header-cell>
-                                <mat-cell *matCellDef="let row" data-label="StatusId"> {{row.statusName}}</mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="vaccinationType">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'VACCINATIONTRANSACTION.VACCINATIONTYPE' |
-                                    translate}} </mat-header-cell>
-                                <mat-cell *matCellDef="let row" data-label="VaccinationType"> {{row.vaccinationTypeName}}
-                                </mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="vaccinationDate">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'VACCINATIONTRANSACTION.VACCINATIONDATE' |
-                                    translate}} </mat-header-cell>
-                                <mat-cell *matCellDef="let row" data-label="VaccinationDate"> {{row.vaccinationDate |
-                                    date:'yyyy-MM-dd HH:mm:ss'}} </mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="description">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'VACCINATIONTRANSACTION.DESCRIPTION' |
-                                    translate}} </mat-header-cell>
-                                <mat-cell *matCellDef="let row" data-label="Description"> {{row.description}}</mat-cell>
-                            </ng-container>
-                            <mat-header-row *matHeaderRowDef="displayedColumnsVaccination"></mat-header-row>
-                            <mat-row *matRowDef="let row; columns: displayedColumnsVaccination;">
-                            </mat-row>
-                        </mat-table>
-                        <mat-paginator [length]="this.queryInfo.pager.totalCount" [pageSize]="this.queryInfo.pager.pageSize"
-                            (page)="pageEvent=$event; onVaccinationPaginateChange($event)" [pageSizeOptions]="[10, 25, 50]">
-                        </mat-paginator>
-                </mat-card-content>
-            </mat-card>
         </div>
         <mat-spinner *ngIf="this.showSpinner === true" style="margin:0 auto; margin-top:150px;">
         </mat-spinner>

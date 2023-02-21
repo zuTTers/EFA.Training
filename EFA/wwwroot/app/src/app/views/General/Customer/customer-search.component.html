@@ -1,0 +1,91 @@
+<mat-sidenav-container class="example-container" [hasBackdrop]="true">
+    <mat-sidenav-content style="min-height: 80vh; margin-top: -8px;">
+        <div class="ml-8 mr-8 mt-8 pb-16">
+            <div class="biruni-action-toolbar">
+                <button mat-icon-button color="primary" (click)="sidenav.toggle()" style="margin-left:10px;">
+                    <mat-icon>filter_list</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="ml-12 mr-12 mt-12 pb-20">
+            <!-- CUSTOMER SEARCH -->
+            <mat-card>
+                <mat-card-title>Üye Arama</mat-card-title>
+                <mat-card-subtitle>Üye arayýn veya yeni üye ekleyin.</mat-card-subtitle>
+                <mat-card-content>
+                    <fast-autocomplete [style.width.%]="100" placeholder="{{ 'DASHBOARD.SEARCHCUSTOMER' | translate }}"
+                                       [initValue]="searchCustomerId" [endpoint]="'/Customer/GetListForCombo'"
+                                       (onChange)="onChange($event)">
+                    </fast-autocomplete>
+
+                </mat-card-content>
+                <mat-card-actions align="start">
+                    <button mat-flat-button color="primary" (click)="newCustomerDialog()">Yeni Üye Ekle</button>
+                </mat-card-actions>
+            </mat-card>
+
+            <div fxLayout="row" fxLayoutGap="10" *ngIf="searchCustomerData">
+                <div fxFlex="80%">
+                    <mat-card>
+                        <mat-card-title>Üye Bilgileri</mat-card-title>
+                        <mat-card-subtitle>
+                            Üye bilgilerini inceleyebilir veya düzenleyebilirsiniz.
+                        </mat-card-subtitle>
+                        <mat-card-content>
+                            <mat-list role="list">
+                                <mat-list-item role="listitem">
+                                    <b>Adý Soyadý : </b>&nbsp; {{searchCustomerData?.fullName}}
+                                </mat-list-item>
+                                <mat-list-item role="listitem">
+                                    <b>Telefon No : </b>&nbsp; {{searchCustomerData?.phoneNumber}}
+                                </mat-list-item>
+                                <mat-list-item role="listitem">
+                                    <b>TC No : </b>&nbsp; {{searchCustomerData?.identityNumber}}
+                                </mat-list-item>
+                                <mat-list-item role="listitem">
+                                    <b>Adres : </b>&nbsp; {{searchCustomerData?.address}}
+                                </mat-list-item>
+                            </mat-list>
+                        </mat-card-content>
+                        <mat-card-actions align="start">
+                            <button mat-flat-button color="accent" (click)="editCustomerDialog(searchCustomerData)">Bilgileri Güncelle</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+                <mat-divider [vertical]="true"></mat-divider>
+            </div>
+
+        </div>
+
+
+    </mat-sidenav-content>
+
+    <mat-sidenav #sidenav mode="over" class="biruni-filter-sidebar" position="end">
+        <div style="margin-bottom:10px;">
+            <button mat-raised-button color="primary" (click)="filterData()" [style.width.%]="45" style="margin-right:10px;">{{'GENERAL.FILTER' | translate}}</button>
+            <button mat-raised-button color="warn" (click)="clearFilter()" [style.width.%]="45">{{'GENERAL.CLEARFILTER' | translate}}</button>
+        </div>
+
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{'CUSTOMER.CUSTOMERID'| translate}}</mat-label>
+            <input matInput type="number" [(ngModel)]="filter.customerId">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{'CUSTOMER.CUSTOMERTYPE'| translate}}</mat-label>
+            <input matInput type="number" [(ngModel)]="filter.customerType">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{'CUSTOMER.IDENTITYNUMBER'| translate}}</mat-label>
+            <input matInput type="text" [(ngModel)]="filter.identityNumber">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{'CUSTOMER.FULLNAME'| translate}}</mat-label>
+            <input matInput type="text" [(ngModel)]="filter.fullName">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{'CUSTOMER.PHONENUMBER'| translate}}</mat-label>
+            <input matInput type="text" [(ngModel)]="filter.phoneNumber">
+        </mat-form-field>
+    </mat-sidenav>
+</mat-sidenav-container>
