@@ -11,18 +11,18 @@
     </button>
 </div>
 <mat-dialog-content>
-    <mat-form-field [style.width.%]="100" appearance="legacy">
+    <!--<mat-form-field [style.width.%]="100" appearance="legacy">-->
         <!-- For camera -->
-        <ngx-scanner-qrcode #action="scanner"></ngx-scanner-qrcode>
+        <!--<ngx-scanner-qrcode #action="scanner"></ngx-scanner-qrcode>-->
         <!-- data  -->
-        <mat-label>{{ action.data.value | json }}</mat-label>
-        <mat-label>{{ action.data | async | json }}</mat-label>
+        <!--<mat-label>{{ action.data.value | json }}</mat-label>
+        <mat-label>{{ action.data | async | json }}</mat-label>-->
         <!-- start -->
-        <button mat-raised-button (click)="action.isStart ? action.stop() : action.start()">Kamera</button>
-    </mat-form-field>
+        <!--<button mat-raised-button (click)="action.isStart ? action.stop() : action.start()">Kamera</button>
+    </mat-form-field>-->
     <mat-form-field [style.width.%]="100" appearance="legacy">
         <mat-label>{{ 'CUSTOMER.QRCODE' | translate }}</mat-label>
-        <qrcode [qrdata]="'Your data string'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+        <qrcode [qrdata]="'row.customerId'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
     </mat-form-field>
     <mat-form-field [style.width.%]="100" appearance="legacy" *ngIf="isNew!=true">
         <mat-label>{{ 'CUSTOMER.CUSTOMERID' | translate }}</mat-label>

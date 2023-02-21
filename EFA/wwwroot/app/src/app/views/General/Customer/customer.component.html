@@ -40,11 +40,6 @@
                         <mat-cell *matCellDef="let row" data-label="CustomerId"> {{row.customerId}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="customerType">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.CUSTOMERTYPE' | translate}} </mat-header-cell>
-                        <mat-cell *matCellDef="let row" data-label="customerType"> {{row.customerType}}</mat-cell>
-                    </ng-container>
-
                     <ng-container matColumnDef="fullName">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.FULLNAME' | translate}} </mat-header-cell>
                         <mat-cell *matCellDef="let row" data-label="FullName"> {{row.fullName}}</mat-cell>
@@ -55,30 +50,29 @@
                         <mat-cell *matCellDef="let row" data-label="PhoneNumber"> {{row.phoneNumber}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="identityNumber">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.IDENTITYNUMBER' | translate}} </mat-header-cell>
-                        <mat-cell *matCellDef="let row" data-label="IdentityNumber"> {{row.identityNumber}}</mat-cell>
+                    <ng-container matColumnDef="workingStartDate">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.WORKINGSTARTDATE' | translate}} </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="WorkingStartDate"> {{row.workingStartDate | date:'yyyy-MM-dd'}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="address">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.ADDRESS' | translate}} </mat-header-cell>
-                        <mat-cell *matCellDef="let row" data-label="Address"> {{row.address}}</mat-cell>
+                    <ng-container matColumnDef="workingEndDate">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.WORKINGENDDATE' | translate}} </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="WorkingEndDate"> {{row.workingEndDate | date:'yyyy-MM-dd'}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="updatedUser">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.UPDATEDUSER' | translate}} </mat-header-cell>
-                        <mat-cell *matCellDef="let row" data-label="UpdatedUser"> {{row.updatedUser}}</mat-cell>
+                    <ng-container matColumnDef="customerType">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.CUSTOMERTYPE' | translate}} </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="CustomerType"> 
+                            <mat-slide-toggle [(ngModel)]="row.customerType" disabled> </mat-slide-toggle>
+                        </mat-cell>
+
                     </ng-container>
 
-                    <ng-container matColumnDef="updatedDate">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.UPDATEDDATE' | translate}} </mat-header-cell>
-                        <mat-cell *matCellDef="let row" data-label="UpdatedDate"> {{row.updatedDate | date:'yyyy-MM-dd HH:mm:ss'}} </mat-cell>
-                    </ng-container>
-
-
-                    <ng-container matColumnDef="updatedUserText">
-                        <mat-header-cell *matHeaderCellDef> {{'CUSTOMER.UPDATEDUSERTEXT' | translate}} </mat-header-cell>
-                        <mat-cell *matCellDef="let row" data-label="UpdatedUser"> {{row.updatedUserText}} </mat-cell>
+                    <ng-container matColumnDef="isPaid">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'CUSTOMER.ISPAID' | translate}} </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="IsPaid"> 
+                            <mat-slide-toggle [(ngModel)]="row.isPaid" disabled> </mat-slide-toggle>
+                        </mat-cell>
                     </ng-container>
 
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -121,10 +115,6 @@
         <mat-form-field [style.width.%]="100" appearance="legacy">
             <mat-label>{{'CUSTOMER.PHONENUMBER'| translate}}</mat-label>
             <input matInput type="text" [(ngModel)]="filter.phoneNumber">
-        </mat-form-field>
-        <mat-form-field [style.width.%]="100" appearance="legacy">
-            <mat-label>{{'CUSTOMER.ADDRESS'| translate}}</mat-label>
-            <input matInput type="text" [(ngModel)]="filter.address">
         </mat-form-field>
     </mat-sidenav>
 </mat-sidenav-container>

@@ -346,7 +346,7 @@
   },
   "CUSTOMER": {
     "CUSTOMER": "Üye",
-    "CUSTOMERTYPE": "Üyelik Tipi",
+    "CUSTOMERTYPE": "VIP Üye?",
     "CUSTOMERMENU": "Üye Yönetimi",
     "CUSTOMERID": "Üye No",
     "IDENTITYNUMBER": "TC No",

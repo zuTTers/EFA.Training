@@ -138,6 +138,7 @@ export class CustomerComponent implements OnInit {
         let emptyData = new CustomerData();
 
         emptyData.customerId = 0;
+        emptyData.customerType = false;
         emptyData.identityNumber = '';
         emptyData.fullName = '';
         emptyData.phoneNumber = '';
@@ -234,12 +235,8 @@ export class CustomerComponent implements OnInit {
             });
     }
 
-
-
-
     getDataConf() {
         return [
-
             {
                 prop: 'Actions',
                 translate: 'ACTIONS',
@@ -257,7 +254,7 @@ export class CustomerComponent implements OnInit {
             {
                 prop: 'identityNumber',
                 translate: 'IDENTITYNUMBER',
-                showColumn: true,
+                showColumn: false,
                 isExport: true,
                 localText: ''
             },
@@ -276,13 +273,61 @@ export class CustomerComponent implements OnInit {
                 localText: ''
             },
             {
-                prop: 'address',
-                translate: 'ADDRESS',
+                prop: 'customerType',
+                translate: 'CUSTOMERTYPE',
                 showColumn: true,
                 isExport: true,
                 localText: ''
-            }
-            ,
+            },
+            {
+                prop: 'age',
+                translate: 'AGE',
+                showColumn: false,
+                isExport: true,
+                localText: ''
+            },
+            {
+                prop: 'gender',
+                translate: 'GENDER',
+                showColumn: false,
+                isExport: true,
+                localText: ''
+            },
+            {
+                prop: 'address',
+                translate: 'ADDRESS',
+                showColumn: false,
+                isExport: true,
+                localText: ''
+            },
+            {
+                prop: 'identityCode',
+                translate: 'IDENTITYCODE',
+                showColumn: false,
+                isExport: true,
+                localText: ''
+            },
+            {
+                prop: 'workingStartDate',
+                translate: 'WORKINGSTARTDATE',
+                showColumn: true,
+                isExport: true,
+                localText: ''
+            },
+            {
+                prop: 'workingEndDate',
+                translate: 'WORKINGENDDATE',
+                showColumn: true,
+                isExport: true,
+                localText: ''
+            },
+            {
+                prop: 'isPaid',
+                translate: 'ISPAID',
+                showColumn: true,
+                isExport: true,
+                localText: ''
+            },
             {
                 prop: 'createdDate',
                 translate: 'CREATEDDATE',
@@ -303,12 +348,11 @@ export class CustomerComponent implements OnInit {
                 showColumn: false,
                 isExport: true,
                 localText: ''
-            }
-            ,
+            },
             {
                 prop: 'updatedDate',
                 translate: 'UPDATEDDATE',
-                showColumn: true,
+                showColumn: false,
                 isExport: true,
                 localText: ''
             },
@@ -322,12 +366,10 @@ export class CustomerComponent implements OnInit {
             {
                 prop: 'updatedUserText',
                 translate: 'UPDATEDUSERTEXT',
-                showColumn: true,
+                showColumn: false,
                 isExport: true,
                 localText: ''
             }
-
-
         ];
     }
 }
@@ -337,11 +379,18 @@ export class CustomerComponent implements OnInit {
 export class CustomerData {
 
     customerId: number;
-    customerType: number;
+    customerType: boolean;
     identityNumber: string;
     fullName: string;
     phoneNumber: string;
+    age: number;
+    gender: boolean;
     address: string;
+    identityCode: string;
+    firstStartDate: Date;
+    workingStartDate: Date;
+    workingEndDate: Date;
+    isPaid: boolean;
 
     createdDate: Date;
     createdUser: number;
