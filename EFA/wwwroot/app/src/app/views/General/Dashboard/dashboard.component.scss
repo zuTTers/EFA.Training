@@ -43,8 +43,8 @@ header {
 .results {
     position: sticky;
     bottom: 0;
-    padding: 15px;
-    background: #02c3c3;
+    padding: 25px;
+    background: #2c9ad1;
     color: #fff;
     display: flex;
     align-items: center;
@@ -53,8 +53,8 @@ header {
     small {
         font-weight: bolder;
         display: block;
-        font-size: 60%;
-        margin: -.6em 0 0 0;
+        font-size: 70%;
+        margin: -.9em 0 0 0;
     }
 
     button {
@@ -65,7 +65,7 @@ header {
         font-size: 120%;
         float: right;
         color: #fff;
-        $mg: 8px;
+        $mg: 10px;
         margin: (-$mg) (-$mg) (-$mg) $mg;
     }
 }

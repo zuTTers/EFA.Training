@@ -128,7 +128,8 @@
     "MONTHS": "Ay",
     "YEARS" :  "Yıl",
     "DOWNLOAD" :  "İndir",
-    "DOWNLOADQRCODE" :  "QR Kodu İndir"
+    "DOWNLOADQRCODE" :  "QR Kodu İndir",
+    "WELCOME" :  "Hoşgeldin!"
   },
   "SYSTEM": "Sistem",
   "DEFINITION": "Tanımlar",
@@ -383,10 +384,10 @@
     "UPDATEDUSERTEXT": "Güncelleyen"
   },
   "INFOMESSAGE": {
-    "CUSTOMERNOTFOUND": "Üye bulunamadı!",
-    "MEMBERSHIPEXPIRED": "Üyelik sona ermiş!",
+    "CUSTOMERNOTFOUND": "Üye Bulunamadı!",
+    "MEMBERSHIPEXPIRED": "Üyelik Sona Ermiş!",
     "SCANSUCCESS": "Giriş Başarılı!",
-    "SCANFAILED": "Okuma başarısız!",
+    "SCANFAILED": "Okuma Başarısız!",
     "REMAINMEMBERSHIP": "Üyeliğin sona ermesine kalan "
   }
 }

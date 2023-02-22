@@ -184,8 +184,9 @@ export class DashboardComponent implements OnInit {
                         let startDate = new Date(response.data[0].workingStartDate);
                         let endDate = new Date(response.data[0].workingEndDate);
                         if (startDate <= today && endDate >= today) {
+                            this.beep();
                             let diff = ((endDate.valueOf() - today.valueOf()) / (1000 * 3600 * 24)).toFixed(0);
-                            let str1 = this.translate.instant("GENERAL.SUCCESS");
+                            let str1 = this.translate.instant("GENERAL.WELCOME");
                             let str2 = this.translate.instant("INFOMESSAGE.REMAINMEMBERSHIP");
                             let str3 = this.translate.instant("GENERAL.DAYS");
                             this.qrResultString = str1 + " # " + str2 + diff + " " + str3;
@@ -197,6 +198,7 @@ export class DashboardComponent implements OnInit {
                             });
                         }
                         else {
+                            this.beep2();
                             this.qrResultString = this.translate.instant("GENERAL.FAILED");
                             this.snackbar.open(this.translate.instant("INFOMESSAGE.MEMBERSHIPEXPIRED"),
                                 this.translate.instant(this.searchCustomerData.fullName), {
@@ -207,6 +209,7 @@ export class DashboardComponent implements OnInit {
                         }
                     }
                     else {
+                        this.beep3();
                         this.qrResultString = this.translate.instant("GENERAL.FAILED");
                         this.snackbar.open(this.translate.instant("GENERAL.FAILED"),
                             this.translate.instant("INFOMESSAGE.CUSTOMERNOTFOUND"), {
@@ -217,6 +220,7 @@ export class DashboardComponent implements OnInit {
                     }
                 }
                 else {
+                    this.beep3();
                     this.qrResultString = this.translate.instant("GENERAL.ERROR");
                     this.snackbar.open(this.translate.instant("GENERAL.ERROR"),
                         this.translate.instant("INFOMESSAGE.SCANFAILED"), {
@@ -280,4 +284,39 @@ export class DashboardComponent implements OnInit {
         return new Blob([uInt8Array], { type: imageType });
     }
 
+    beep(): void {
+        var context = new AudioContext();
+        var oscillator = context.createOscillator();
+        oscillator.type = "square";
+        oscillator.frequency.value = 500;
+        oscillator.connect(context.destination);
+        oscillator.start();
+        setTimeout(function () {
+            oscillator.stop();
+        }, 200);
+    }
+
+    beep2(): void {
+        var context = new AudioContext();
+        var oscillator = context.createOscillator();
+        oscillator.type = "sine";
+        oscillator.frequency.value = 500;
+        oscillator.connect(context.destination);
+        oscillator.start();
+        setTimeout(function () {
+            oscillator.stop();
+        }, 300);     
+    }
+
+    beep3(): void {
+        var context = new AudioContext();
+        var oscillator = context.createOscillator();
+        oscillator.type = "sawtooth";
+        oscillator.frequency.value = 500;
+        oscillator.connect(context.destination);
+        oscillator.start();
+        setTimeout(function () {
+            oscillator.stop();
+        }, 400);
+    }
 }
