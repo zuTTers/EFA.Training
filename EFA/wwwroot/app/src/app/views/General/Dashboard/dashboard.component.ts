@@ -15,6 +15,8 @@ import { NavigationService } from '../../../shared/services/navigation.service'
 import { CustomerData, CustomerFilter } from '../Customer/customer.component';
 import { CustomerService } from '../Customer/customer.service';
 import { CustomerDialogComponent } from '../Customer/customer-dialog.component';
+import { BarcodeFormat } from '@zxing/library';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'dashboard-table',
@@ -32,6 +34,22 @@ export class DashboardComponent implements OnInit {
     searchCustomerId: number;
     customerFilter: CustomerFilter;
     searchCustomerData: CustomerData;
+
+    //QR CODE DECLARE
+    availableDevices: MediaDeviceInfo[];
+    currentDevice: MediaDeviceInfo = null;
+    formatsEnabled: BarcodeFormat[] = [
+        BarcodeFormat.CODE_128,
+        BarcodeFormat.DATA_MATRIX,
+        BarcodeFormat.EAN_13,
+        BarcodeFormat.QR_CODE,
+    ];
+    hasDevices: boolean;
+    hasPermission: boolean;
+    qrResultString: string;
+    torchEnabled = false;
+    torchAvailable$ = new BehaviorSubject<boolean>(false);
+    tryHarder = false;
 
     constructor(
         private dashboardService: DashboardService,
@@ -133,6 +151,41 @@ export class DashboardComponent implements OnInit {
                     this.getCustomerData();
                 }
             });
+    }
+
+    //QR CODE METHODS
+    clearResult(): void {
+        this.qrResultString = null;
+    }
+
+    onCamerasFound(devices: MediaDeviceInfo[]): void {
+        this.availableDevices = devices;
+        this.hasDevices = Boolean(devices && devices.length);
+    }
+
+    onCodeResult(resultString: string) {
+        this.qrResultString = resultString;
+    }
+
+    onDeviceSelectChange(selected: string) {
+        const device = this.availableDevices.find(x => x.deviceId === selected);
+        this.currentDevice = device || null;
+    }
+
+    onHasPermission(has: boolean) {
+        this.hasPermission = has;
+    }
+
+    onTorchCompatible(isCompatible: boolean): void {
+        this.torchAvailable$.next(isCompatible || false);
+    }
+
+    toggleTorch(): void {
+        this.torchEnabled = !this.torchEnabled;
+    }
+
+    toggleTryHarder(): void {
+        this.tryHarder = !this.tryHarder;
     }
 
 }
