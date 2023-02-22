@@ -67,7 +67,6 @@
   "ERROR": "Hata",
   "OVERVIEW": "Genel Bakış",
   "SETTINGS": "Ayarlar",
-
   "ECOMMERCE": "E-Ticaret",
   "SHOP": "Alış veriş",
   "PRODUCTS": "Ürünler",
@@ -89,13 +88,12 @@
       "BANK": "Banka",
       "WRAPPER": "Sarıcı"
     }
-
   },
   "MAINMENU": {
     "SYSTEM": "Sistem",
     "GENERAL": "Genel",
     "USERMANAGEMENT": "Kullanıcı Yönetimi",
-    "VACCINATIONTRANSACTION": "Aşı Yönetimi"
+    "SESSIONS": "Oturumlar"
   },
   "GENERAL": {
     "ACTIONS": "İşlemler",
@@ -123,7 +121,14 @@
     "END": "Son",
     "COMPLETE": "Tamamla",
     "COMPLETED": "Tamamlandı",
-    "SKIP": "Geç"
+    "SKIP": "Geç",
+    "SESSION": "Oturum",
+    "FAILED": "Başarısız",
+    "DAYS": "Gün",
+    "MONTHS": "Ay",
+    "YEARS" :  "Yıl",
+    "DOWNLOAD" :  "İndir",
+    "DOWNLOADQRCODE" :  "QR Kodu İndir"
   },
   "SYSTEM": "Sistem",
   "DEFINITION": "Tanımlar",
@@ -370,11 +375,18 @@
   "DASHBOARD": {
     "DASHBOARD": "Dashboard",
     "DASHBOARDMENU": "Kontrol Paneli",
-    "SEARCHCUSTOMER": "Müşteri adını giriniz.",
+    "SEARCHCUSTOMER": "Üye adını giriniz.",
     "CREATEDUSER": "Oluşturan",
     "CREATEDUSERTEXT": "Oluşturan",
     "UPDATEDDATE": "Güncellenme",
     "UPDATEDUSER": "Güncelleyen",
     "UPDATEDUSERTEXT": "Güncelleyen"
+  },
+  "INFOMESSAGE": {
+    "CUSTOMERNOTFOUND": "Üye bulunamadı!",
+    "MEMBERSHIPEXPIRED": "Üyelik sona ermiş!",
+    "SCANSUCCESS": "Giriş Başarılı!",
+    "SCANFAILED": "Okuma başarısız!",
+    "REMAINMEMBERSHIP": "Üyeliğin sona ermesine kalan "
   }
 }

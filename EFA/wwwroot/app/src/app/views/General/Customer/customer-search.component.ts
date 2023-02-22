@@ -66,31 +66,31 @@ export class CustomerSearchComponent implements OnInit {
     getCustomerData() {
         this.showSpinner = true;
         let columnInfo = null;
-        this.customerFilter.customerId = this.searchCustomerId;
-        this.customerService.getData(this.customerFilter, this.queryInfo, columnInfo, false)
-            .subscribe((response: any) => {
-                this.navigationService.sessionControl(response);
-                this.showSpinner = false;
-                if (response.isSuccess) {
-                    this.searchCustomerData = response.data[0];
-                }
-                else {
-                    this.snackbar.open(this.translate.instant("GENERAL.ERROR"),
-                        this.translate.instant(response.error), {
-                        horizontalPosition: 'start',
-                        verticalPosition: 'bottom',
-                        duration: 2000
-                    });
-                }
-            }, (error) => {
-                this.showSpinner = false;
-                this.snackbar.open(this.translate.instant("GENERAL.ERROR"),
-                    this.translate.instant(error), {
-                    horizontalPosition: 'start',
-                    verticalPosition: 'bottom',
-                    duration: 2000
-                });
-            });
+    //    this.customerFilter.customerId = this.searchCustomerId;
+    //    this.customerService.getData(this.customerFilter, this.queryInfo, columnInfo, false)
+    //        .subscribe((response: any) => {
+    //            this.navigationService.sessionControl(response);
+    //            this.showSpinner = false;
+    //            if (response.isSuccess) {
+    //                this.searchCustomerData = response.data[0];
+    //            }
+    //            else {
+    //                this.snackbar.open(this.translate.instant("GENERAL.ERROR"),
+    //                    this.translate.instant(response.error), {
+    //                    horizontalPosition: 'start',
+    //                    verticalPosition: 'bottom',
+    //                    duration: 2000
+    //                });
+    //            }
+    //        }, (error) => {
+    //            this.showSpinner = false;
+    //            this.snackbar.open(this.translate.instant("GENERAL.ERROR"),
+    //                this.translate.instant(error), {
+    //                horizontalPosition: 'start',
+    //                verticalPosition: 'bottom',
+    //                duration: 2000
+    //            });
+    //        });
     }
 
     editCustomerDialog(row: CustomerData) {

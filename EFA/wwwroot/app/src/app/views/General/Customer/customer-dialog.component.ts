@@ -16,6 +16,7 @@ export class CustomerDialogComponent {
 
     row: CustomerData;
     isNew: boolean;
+    public qrdata: string = null;
     constructor(public dialogRef: MatDialogRef<CustomerDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private customerService: CustomerService,
@@ -27,8 +28,7 @@ export class CustomerDialogComponent {
     }
 
     ngOnInit() {
-
-
+        this.qrdata = this.row.identityCode;
     }
 
     rebuildForm() {

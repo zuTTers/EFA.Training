@@ -143,6 +143,13 @@ export class CustomerComponent implements OnInit {
         emptyData.fullName = '';
         emptyData.phoneNumber = '';
         emptyData.address = '';
+        emptyData.identityCode = '';
+        emptyData.age = 0;
+        emptyData.gender = false;
+        emptyData.firstStartDate = new Date();
+        emptyData.workingStartDate = new Date();
+        emptyData.workingEndDate = new Date();
+        emptyData.isPaid = false;
         emptyData.createdUser = 0;
         emptyData.createdDate = new Date();
         emptyData.updatedUser = 0;
@@ -412,6 +419,7 @@ export class CustomerFilter {
     fullName: string;
     phoneNumber: string;
     address: string;
+    identityCode: string;
     createdDate: Date;
     createdDate2: Date;
     createdUser: number;

@@ -63,6 +63,10 @@ namespace EFA.Services.System
 					if (!string.IsNullOrEmpty(filter.PhoneNumber)) dbQuery = dbQuery.Where(x => x.PhoneNumber.Contains(filter.PhoneNumber));
 					if (!string.IsNullOrEmpty(filter.Address)) dbQuery = dbQuery.Where(x => x.Address.Contains(filter.Address));
 					if (filter.IsPaid.HasValue) dbQuery = dbQuery.Where(x => x.IsPaid == filter.IsPaid.Value);
+					if (!string.IsNullOrEmpty(filter.IdentityCode))
+					{
+						dbQuery = dbQuery.Where(x => x.IdentityCode == filter.IdentityCode);
+					}
 				}
 
 				totalCount = dbQuery.Count();
@@ -132,6 +136,8 @@ namespace EFA.Services.System
 				{
 					customer.CreatedDate = DateTime.Now;
 					customer.CreatedUser = userInfo.UserId;
+					customer.FirstStartDate = DateTime.Now;
+					customer.IdentityCode = Guid.NewGuid().ToString("N");
 				}
 				else
 				{
@@ -149,11 +155,9 @@ namespace EFA.Services.System
 				customer.Age = customerDTO.Age;
 				customer.Gender = customerDTO.Gender;
 				customer.Address = customerDTO.Address;
-				customer.IdentityCode = customerDTO.IdentityCode;
-				customer.FirstStartDate = customerDTO.FirstStartDate;
-				customer.WorkingStartDate = customerDTO.WorkingStartDate;
-				customer.WorkingEndDate = customerDTO.WorkingEndDate;
 				customer.IsPaid = customerDTO.IsPaid;
+				customer.WorkingStartDate = customerDTO.WorkingStartDate.Value.AddDays(1);
+				customer.WorkingEndDate = customerDTO.WorkingEndDate.Value.AddDays(1);
 
 				if (isNewRecord)
 				{
@@ -221,5 +225,7 @@ namespace EFA.Services.System
 		public DateTime? UpdatedDate { get; set; }
 		public DateTime? UpdatedDate2 { get; set; }
 		public Boolean? IsPaid { get; set; }
+		public String IdentityCode { get; set; }
+
 	}
 }

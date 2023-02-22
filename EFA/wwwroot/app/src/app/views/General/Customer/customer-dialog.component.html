@@ -11,47 +11,84 @@
     </button>
 </div>
 <mat-dialog-content>
-    <!--<mat-form-field [style.width.%]="100" appearance="legacy">-->
-        <!-- For camera -->
-        <!--<ngx-scanner-qrcode #action="scanner"></ngx-scanner-qrcode>-->
-        <!-- data  -->
-        <!--<mat-label>{{ action.data.value | json }}</mat-label>
-        <mat-label>{{ action.data | async | json }}</mat-label>-->
-        <!-- start -->
-        <!--<button mat-raised-button (click)="action.isStart ? action.stop() : action.start()">Kamera</button>
-    </mat-form-field>-->
-    <mat-form-field [style.width.%]="100" appearance="legacy">
-        <mat-label>{{ 'CUSTOMER.QRCODE' | translate }}</mat-label>
-        <qrcode [qrdata]="'row.customerId'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
-    </mat-form-field>
-    <mat-form-field [style.width.%]="100" appearance="legacy" *ngIf="isNew!=true">
-        <mat-label>{{ 'CUSTOMER.CUSTOMERID' | translate }}</mat-label>
-        <input type="text" matInput [(ngModel)]="row.customerId" disabled="isNew!=true">
-    </mat-form-field>
-    <mat-form-field [style.width.%]="100" appearance="legacy">
-        <mat-label>{{ 'CUSTOMER.FULLNAME' | translate }}</mat-label>
-        <input type="text" matInput [(ngModel)]="row.fullName">
-    </mat-form-field>
-    <mat-form-field [style.width.%]="100" appearance="legacy">
-        <mat-label>{{ 'CUSTOMER.IDENTITYNUMBER' | translate }}</mat-label>
-        <input type="text" matInput [(ngModel)]="row.identityNumber" maxlength="11">
-    </mat-form-field>
-    <mat-form-field [style.width.%]="100" appearance="legacy">
-        <mat-label>{{ 'CUSTOMER.PHONENUMBER' | translate }}</mat-label>
-        <input type="text" matInput [(ngModel)]="row.phoneNumber" maxlength="10">
-    </mat-form-field>
-    <mat-form-field [style.width.%]="100" appearance="legacy">
-        <mat-label>{{ 'CUSTOMER.ADDRESS' | translate }}</mat-label>
-        <input type="text" matInput [(ngModel)]="row.address">
-    </mat-form-field>
-
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field [style.width.%]="100" appearance="legacy" *ngIf="isNew!=true">
+            <mat-label>{{ 'CUSTOMER.CUSTOMERID' | translate }}</mat-label>
+            <input type="text" matInput [(ngModel)]="row.customerId" disabled="isNew!=true">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{ 'CUSTOMER.FULLNAME' | translate }}</mat-label>
+            <input type="text" matInput [(ngModel)]="row.fullName">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{ 'CUSTOMER.IDENTITYNUMBER' | translate }}</mat-label>
+            <input type="text" matInput [(ngModel)]="row.identityNumber" maxlength="11">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <span style="margin-left:10px;">{{ 'CUSTOMER.CUSTOMERTYPE' | translate }}</span>
+            <mat-slide-toggle [(ngModel)]="row.customerType"></mat-slide-toggle>
+            <textarea matInput style="display:none;"></textarea>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{ 'CUSTOMER.PHONENUMBER' | translate }}</mat-label>
+            <input type="text" matInput [(ngModel)]="row.phoneNumber" maxlength="10">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <span style="margin-left:10px;">{{ 'CUSTOMER.GENDER' | translate }}</span>
+            <mat-slide-toggle [(ngModel)]="row.gender"></mat-slide-toggle>
+            <textarea matInput style="display:none;"></textarea>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{ 'CUSTOMER.AGE' | translate }}</mat-label>
+            <input type="number" matInput [(ngModel)]="row.age">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <span style="margin-left:10px;">{{ 'CUSTOMER.ISPAID' | translate }}</span>
+            <mat-slide-toggle [(ngModel)]="row.isPaid"></mat-slide-toggle>
+            <textarea matInput style="display:none;"></textarea>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{ 'CUSTOMER.ADDRESS' | translate }}</mat-label>
+            <input type="text" matInput [(ngModel)]="row.address">
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy" *ngIf="isNew!=true">
+            <mat-label>{{ 'CUSTOMER.FIRSTSTARTDATE' | translate }}</mat-label>
+            <input matInput [matDatepicker]="firstStartDate" [(ngModel)]="row.firstStartDate" disabled>
+            <mat-datepicker-toggle matSuffix [for]="firstStartDate"></mat-datepicker-toggle>
+            <mat-datepicker #firstStartDate></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{ 'CUSTOMER.WORKINGSTARTDATE' | translate }}</mat-label>
+            <input matInput [matDatepicker]="workingStartDate" [(ngModel)]="row.workingStartDate">
+            <mat-datepicker-toggle matSuffix [for]="workingStartDate"></mat-datepicker-toggle>
+            <mat-datepicker #workingStartDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field [style.width.%]="100" appearance="legacy">
+            <mat-label>{{ 'CUSTOMER.WORKINGENDDATE' | translate }}</mat-label>
+            <input matInput [matDatepicker]="workingEndDate" [(ngModel)]="row.workingEndDate">
+            <mat-datepicker-toggle matSuffix [for]="workingEndDate"></mat-datepicker-toggle>
+            <mat-datepicker #workingEndDate></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px" *ngIf="isNew!=true">
+        <span>{{ 'CUSTOMER.IDENTITYCODE' | translate }}</span>
+        <qrcode [qrdata]="qrdata" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
     <div *ngIf="isNew!=true" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-
         <mat-form-field fxFlex appearance="legacy">
             <mat-label>{{ 'USER.CREATEDDATE' | translate }}</mat-label>
             <input matInput value="{{row.createdDate | date:'yyyy-MM-dd HH:mm' }}" readonly>
         </mat-form-field>
-
         <mat-form-field fxFlex appearance="legacy">
             <mat-label>{{ 'USER.CREATEDUSERTEXT' | translate }}</mat-label>
             <input matInput [(ngModel)]="row.createdUserText" readonly>
@@ -59,27 +96,20 @@
     </div>
 
     <div *ngIf="isNew!=true" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-
         <mat-form-field fxFlex appearance="legacy">
             <mat-label>{{ 'USER.UPDATEDDATE' | translate }}</mat-label>
             <input matInput value="{{row.updatedDate | date:'yyyy-MM-dd HH:mm' }}" readonly>
         </mat-form-field>
-
         <mat-form-field fxFlex appearance="legacy">
             <mat-label>{{ 'USER.UPDATEDUSERTEXT' | translate }}</mat-label>
             <input matInput [(ngModel)]="row.updatedUserText" readonly>
         </mat-form-field>
-
     </div>
+
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row">
     <div fxFlex="20%">
-        <button *ngIf="isNew==false" mat-raised-button color="warn" (click)="delete()">
-            {{
-'GENERAL.DELETE' |
-            translate
-            }}
-        </button>
+        <button *ngIf="isNew==false" mat-raised-button color="warn" (click)="delete()"> {{'GENERAL.DELETE' | translate}}</button>
     </div>
     <div fxFlex="80%" style="text-align:right;">
         <button mat-raised-button (click)="close()">{{'GENERAL.CANCEL' | translate}}</button>

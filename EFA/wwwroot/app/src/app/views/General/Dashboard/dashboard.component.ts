@@ -17,6 +17,8 @@ import { CustomerService } from '../Customer/customer.service';
 import { CustomerDialogComponent } from '../Customer/customer-dialog.component';
 import { BarcodeFormat } from '@zxing/library';
 import { BehaviorSubject } from 'rxjs';
+import { SafeUrl } from '@angular/platform-browser';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @Component({
     selector: 'dashboard-table',
@@ -36,6 +38,8 @@ export class DashboardComponent implements OnInit {
     searchCustomerData: CustomerData;
 
     //QR CODE DECLARE
+    public customerQrCode: string = null;
+    public qrCodeDownloadLink: SafeUrl = "";
     availableDevices: MediaDeviceInfo[];
     currentDevice: MediaDeviceInfo = null;
     formatsEnabled: BarcodeFormat[] = [
@@ -90,19 +94,12 @@ export class DashboardComponent implements OnInit {
                 this.showSpinner = false;
                 if (response.isSuccess) {
                     this.searchCustomerData = response.data[0];
-                }
-                else {
-                    this.snackbar.open(this.translate.instant("GENERAL.ERROR"),
-                        this.translate.instant(response.error), {
-                        horizontalPosition: 'start',
-                        verticalPosition: 'bottom',
-                        duration: 2000
-                    });
+                    this.customerQrCode = response.data[0].identityCode;
                 }
             }, (error) => {
                 this.showSpinner = false;
                 this.snackbar.open(this.translate.instant("GENERAL.ERROR"),
-                    this.translate.instant(error), {
+                    this.translate.instant("GENERAL.ERROR"), {
                     horizontalPosition: 'start',
                     verticalPosition: 'bottom',
                     duration: 2000
@@ -120,10 +117,18 @@ export class DashboardComponent implements OnInit {
         let emptyData = new CustomerData();
 
         emptyData.customerId = 0;
+        emptyData.customerType = false;
         emptyData.identityNumber = '';
         emptyData.fullName = '';
         emptyData.phoneNumber = '';
         emptyData.address = '';
+        emptyData.identityCode = '';
+        emptyData.age = 0;
+        emptyData.gender = false;
+        emptyData.firstStartDate = new Date();
+        emptyData.workingStartDate = new Date();
+        emptyData.workingEndDate = new Date();
+        emptyData.isPaid = false;
         emptyData.createdUser = 0;
         emptyData.createdDate = new Date();
         emptyData.updatedUser = 0;
@@ -164,7 +169,72 @@ export class DashboardComponent implements OnInit {
     }
 
     onCodeResult(resultString: string) {
-        this.qrResultString = resultString;
+        this.showSpinner = true;
+        let columnInfo = null;
+        this.customerFilter.identityCode = resultString;
+        this.customerService.getData(this.customerFilter, this.queryInfo, columnInfo, false)
+            .subscribe((response: any) => {
+                this.navigationService.sessionControl(response);
+                this.showSpinner = false;
+                if (response.isSuccess) {
+                    if (response.data.length > 0) {
+                        this.searchCustomerData = response.data[0];
+                        this.customerQrCode = response.data[0].identityCode;
+                        let today = new Date();
+                        let startDate = new Date(response.data[0].workingStartDate);
+                        let endDate = new Date(response.data[0].workingEndDate);
+                        if (startDate <= today && endDate >= today) {
+                            let diff = ((endDate.valueOf() - today.valueOf()) / (1000 * 3600 * 24)).toFixed(0);
+                            let str1 = this.translate.instant("GENERAL.SUCCESS");
+                            let str2 = this.translate.instant("INFOMESSAGE.REMAINMEMBERSHIP");
+                            let str3 = this.translate.instant("GENERAL.DAYS");
+                            this.qrResultString = str1 + " # " + str2 + diff + " " + str3;
+                            this.snackbar.open(this.translate.instant("INFOMESSAGE.SCANSUCCESS"),
+                                this.translate.instant(this.searchCustomerData.fullName), {
+                                horizontalPosition: 'start',
+                                verticalPosition: 'bottom',
+                                duration: 5000
+                            });
+                        }
+                        else {
+                            this.qrResultString = this.translate.instant("GENERAL.FAILED");
+                            this.snackbar.open(this.translate.instant("INFOMESSAGE.MEMBERSHIPEXPIRED"),
+                                this.translate.instant(this.searchCustomerData.fullName), {
+                                horizontalPosition: 'start',
+                                verticalPosition: 'bottom',
+                                duration: 5000
+                            });
+                        }
+                    }
+                    else {
+                        this.qrResultString = this.translate.instant("GENERAL.FAILED");
+                        this.snackbar.open(this.translate.instant("GENERAL.FAILED"),
+                            this.translate.instant("INFOMESSAGE.CUSTOMERNOTFOUND"), {
+                            horizontalPosition: 'start',
+                            verticalPosition: 'bottom',
+                            duration: 5000
+                        });
+                    }
+                }
+                else {
+                    this.qrResultString = this.translate.instant("GENERAL.ERROR");
+                    this.snackbar.open(this.translate.instant("GENERAL.ERROR"),
+                        this.translate.instant("INFOMESSAGE.SCANFAILED"), {
+                        horizontalPosition: 'start',
+                        verticalPosition: 'bottom',
+                        duration: 5000
+                    });
+                }
+            }, (error) => {
+                this.showSpinner = false;
+                this.qrResultString = this.translate.instant("GENERAL.ERROR");
+                this.snackbar.open(this.translate.instant("GENERAL.ERROR"),
+                    this.translate.instant("INFOMESSAGE.SCANFAILED"), {
+                    horizontalPosition: 'start',
+                    verticalPosition: 'bottom',
+                    duration: 5000
+                });
+            });
     }
 
     onDeviceSelectChange(selected: string) {
@@ -186,6 +256,28 @@ export class DashboardComponent implements OnInit {
 
     toggleTryHarder(): void {
         this.tryHarder = !this.tryHarder;
+    }
+
+    saveAsImage(parent) {
+        const parentElement = parent.qrcElement.nativeElement.firstChild.currentSrc;
+        let blobData = this.convertBase64ToBlob(parentElement);
+        const blob = new Blob([blobData], { type: "image/png" });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'QR_Code';
+        link.click();
+    }
+
+    private convertBase64ToBlob(Base64Image: any) {
+        const parts = Base64Image.split(';base64,');
+        const imageType = parts[0].split(':')[1];
+        const decodedData = window.atob(parts[1]);
+        const uInt8Array = new Uint8Array(decodedData.length);
+        for (let i = 0; i < decodedData.length; ++i) {
+            uInt8Array[i] = decodedData.charCodeAt(i);
+        }
+        return new Blob([uInt8Array], { type: imageType });
     }
 
 }
