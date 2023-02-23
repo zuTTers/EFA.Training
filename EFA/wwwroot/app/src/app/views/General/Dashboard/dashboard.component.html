@@ -6,7 +6,7 @@
                 <div fxFlex="50%">
                     <!-- CUSTOMER SEARCH -->
                     <mat-card>
-                        <mat-card-title>Arama</mat-card-title>
+                        <mat-card-title>Üye Bilgisi</mat-card-title>
                         <mat-card-subtitle>Üye arayın veya yeni üye ekleyin.</mat-card-subtitle>
                         <mat-card-content>
                             <fast-autocomplete [style.width.%]="100" placeholder="{{ 'DASHBOARD.SEARCHCUSTOMER' | translate }}"
@@ -38,6 +38,9 @@
                                         </mat-list-item>
                                         <mat-list-item role="listitem">
                                             <b>Üye Tipi : </b>&nbsp; <mat-slide-toggle [(ngModel)]="searchCustomerData.customerType" disabled></mat-slide-toggle>
+                                        </mat-list-item>
+                                        <mat-list-item role="listitem">
+                                            <b>Ödeme Yapıldı? : </b>&nbsp; <mat-slide-toggle [(ngModel)]="searchCustomerData.isPaid" disabled></mat-slide-toggle>
                                         </mat-list-item>
                                         <mat-list-item role="listitem">
                                             <b>İlk Sisteme Giriş : </b>&nbsp; {{searchCustomerData?.firstStartDate | date:'yyyy-MM-dd'}}
