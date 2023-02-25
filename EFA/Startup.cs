@@ -30,11 +30,6 @@ namespace EFA
             }));
             services.AddMvc();
             services.AddHttpContextAccessor();
-
-            services.AddRazorPages().AddRazorPagesOptions(options =>
-            {
-                options.Conventions.AddPageRoute("/ProductDetail", "ProductDetail/{productId}/{productName?}");
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
